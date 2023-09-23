@@ -18,6 +18,7 @@ fn list_files(folder_path: &str) {
                 }
                 println!("{}", path.unwrap().path().display());
             }
+            std::process::exit(0);
         }
     }
 }
