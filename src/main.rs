@@ -3,8 +3,8 @@ use std::env;
 
 fn main() {
     let args = read_args();
-    dbg!(args);
-    list_files(&String::from("."));
+    dbg!(&args);
+    list_files(&args[1]);
 }
 
 fn list_files(folder_path: &str) {
