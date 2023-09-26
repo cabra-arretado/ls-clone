@@ -5,7 +5,6 @@ use std::fs;
 
 fn main() {
     let args = read_args();
-    let program = &args[0];
 
     let mut opts = getopts::Options::new();
 
@@ -51,7 +50,6 @@ fn get_files_vec(folder_path: &str) -> Vec<String> {
             files
         }
     }
-
 }
 
 fn read_args() -> Vec<String> {
