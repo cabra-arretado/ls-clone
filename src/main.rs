@@ -5,18 +5,23 @@ use std::fs;
 
 fn main() {
     let args = read_args();
-    // let program = args[0].clone();
-    // let mut opts = getopts::Options::new();
-    // opts.optflag("a", "help", "print this help menu");
-    // let matches = match opts.parse(&args[1..]) {
-    //     Ok(m) => { m }
-    //     Err(f) => { panic!("{}", f.to_string()) }
-    // };
-    // if matches.opt_present("h") {
-    //     println!("{}", String::from("Help me"));
-    //     return;
-    // }
-    list_files(&args[0]);
+    let program = &args[0];
+
+    let mut opts = getopts::Options::new();
+
+    opts.optflag("h", "help", "Print this help menu");
+
+    let matches = match opts.parse(&args[1..]) {
+        Ok(m) => { m }
+        Err(f) => { panic!("{}", f.to_string()) }
+    };
+
+    if matches.opt_present("h") {
+        print_usage(opts);
+        std::process::exit(0);
+    }
+
+    list_files(&args[1]);
 }
 
 fn list_files(folder_path: &str) {
@@ -24,6 +29,8 @@ fn list_files(folder_path: &str) {
     for file in files {
         print!("{} ", file);
     }
+    println!("");
+    std::process::exit(0);
 }
 
 fn get_files_vec(folder_path: &str) -> Vec<String> {
@@ -53,5 +60,11 @@ fn read_args() -> Vec<String> {
         println!("Error: missing arguments");
         std::process::exit(1);
     }
-    args[1..].to_vec()
+    args[..].to_vec()
+}
+
+fn print_usage(opts: getopts::Options) {
+    let program = "ls-clone";
+    let brief = format!("Usage: {} [options]", program);
+    print!("{}", opts.usage(&brief));
 }
