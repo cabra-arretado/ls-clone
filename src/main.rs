@@ -62,7 +62,7 @@ fn read_args() -> Vec<String> {
 }
 
 fn print_usage(opts: getopts::Options) {
-    let program = "ls-clone";
+    let program = "mini-ls";
     let brief = format!("Usage: {} [options]", program);
     print!("{}", opts.usage(&brief));
 }
